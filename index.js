@@ -13,6 +13,15 @@
 
 // 4 - Crie uma função que recebe como parâmetro o id de uma reserva e exibe no console: nome do hotel - endereço - dia de entrada - dia de saída
 
+// 5 - Crie uma função que recebe como parâmetro o nome de uma pessoa e exibe na tela todas as suas reservas;
+
+// 6 - Crie uma função que recebe como parâmetro uma categoria e retorna um array com todos os hotéis nessa categoria;
+
+// 7 - Crie uma função que recebe o id de um hotel e um telefone como parâmetro, a função deve atualizar o telefone de cadastro com o número recebido;
+
+// 8 - Crie um fluxo de funcionamento para o algoritmo, o usuário deve poder escolher quando encerrar o programa.
+
+
 let hoteis = []
 let reservas = []
 
@@ -88,8 +97,6 @@ function CadastrarReserva() {
     }
 }
 
-// 3 - Crie uma função que recebe como parâmetro o id do hotel e exibe na tela todas as reservas neste hotel com as seguintes informações: nome do hotel - nome do responsável da reserva - dia de entrada - dia de saída
-
 
 function ExibirReservas(idHotel) {
 
@@ -108,12 +115,98 @@ function ExibirReservas(idHotel) {
 }
 
 
-// 4 - Crie uma função que recebe como parâmetro o id de uma reserva e exibe no console: nome do hotel - endereço - dia de entrada - dia de saída
-
-
 function ExibirId(idReserva) {
 
-    for (let index = 0; index < array.length; index++) {
+    for (let index = 0; index < reservas.length; index++) {
+        if (idReserva === reservas[index].Id) {
+            for (let index2 = 0; index2 < hoteis.length; index2++) {
+                if (reservas[index].IdHotel === hoteis[index2].Id) {
+                    console.log("Nome do hotel: " + hoteis[index2].Nome)
+                    console.log("Endereço do hotel: " + hoteis[index2].Endereco)
+                    console.log("Dia de entrada: " + reservas[index].DiaEntrada)
+                    console.log("Dia de saída: " + reservas[index].DiaSaida)
+                }
+            }
+        }
+    }
+}
 
+
+function ExibirNomePessoa(nomePessoa) {
+    for (let index = 0; index < reservas.length; index++) {
+        if (nomePessoa === reservas[index].NomeResponsavel) {
+            console.log(reservas[index])
+        }
+    }
+}
+
+
+function ExibirCategoria(categoriaHotel) {
+    let arrayCategoria = []
+
+    for (let index = 0; index < hoteis.length; index++) {
+        if (categoriaHotel === hoteis[index].Categoria) {
+            arrayCategoria.push(hoteis[index])
+        }
+    }
+    console.log(arrayCategoria)
+    return arrayCategoria
+}
+
+// 7 - Crie uma função que recebe o id de um hotel e um telefone como parâmetro, a função deve atualizar o telefone de cadastro com o número recebido;
+
+function AtualizarTelefone(IdHotel, telefone) {
+    for (let index = 0; index < hoteis.length; index++) {
+        if (IdHotel === hoteis[index].Id) {
+            hoteis[index].Telefone = telefone
+            console.log("Telefone atualizado")
+        }
+    }
+}
+
+
+
+
+
+// 8 - Crie um fluxo de funcionamento para o algoritmo, o usuário deve poder escolher quando encerrar o programa.
+
+let opcao = prompt("Insira a opção desejada, 1: cadastrar um hotel / 2: cadastrar uma reserva / 3: Exibir reservas pelo ID do hotel/ 4: Exibir informações pelo ID da reserva/ 5: Exibir reservas pelo nome do Responsável / 6: Exibir hotéis pela categoria / 7: Atualizar um telefone do cadastro / 8: Encerrar programa")
+
+let condition = true
+while (condition) {
+    switch (opcao) {
+        case "1":
+            CadastrarHotel()
+            break;
+        case "2":
+            CadastrarReserva()
+            break;
+        case "3":
+            let idHotel = parseInt(prompt("Insira o id do Hotel para exibir informações"))
+            ExibirReservas(idHotel)
+            break;
+        case "4":
+            let idReserva = parseInt(prompt("Insira um ID de uma reserva para exibir informações"))
+            ExibirId(idReserva)
+            break;
+        case "5":
+            let nomePessoa = prompt("Insira o nome de uma pessoa para ser exibido as suas reservas")
+            ExibirNomePessoa(nomePessoa)
+            break;
+        case "6":
+            let categoriaHotel = prompt("Insira a categoria do Hotel para exibir os hoteis desta categoria")
+            ExibirCategoria(categoriaHotel)
+            break;
+        case "7":
+            let IdHotel = parseInt(prompt("Insira o ID do hotel para atualizarmos o telefone"))
+            let telefone = prompt("Insira o telefone correto para atualizarmos")
+            AtualizarTelefone(IdHotel, telefone)
+            break;
+        case "8":
+            condition = false
+            break;
+        default:
+            console.log("Default")
+            break;
     }
 }
